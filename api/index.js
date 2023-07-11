@@ -25,32 +25,53 @@ const httpServer = http.createServer(app);
 
 const typeDefs = gql`
 
+  # Define los distritos de Panamá
   type Distrito {
+    # Un identificador numérico
     id: ID!
+    # El nombre del distrito
     name: String!
+    # La cabecera del distrito si es que existe
     cabecera: String
+    # La lista de corregimientos mas actualizada hasta el momento
     corregimientos: [String!]!
   }
 
+  # Define las comarcas de Panamá
   type Comarca {
+    # Un identificador numérico
     id: ID!
+    # El nombre de la comarca
     name: String!
+    # La capital o cabecera de la comarca
     capital: String!
+    # La lista de distritos de la comarca mas actualizada hasta el momento
     distrito: [Distrito!]!
   }
 
+  # Define las provincias de Panamá
   type Provincia {
+    # Un identificador numérico
     id: ID!
+    # El nombre de la provincia
     name: String!
+    # La capital o cabecera de la provincia
     capital: String!
+    # La lista de distritos de la provincia mas actualizada hasta el momento
     distrito: [Distrito!]!
   }
 
+  # Los tipos de busqueda que se pueden realizar
   type Query {
+    # Busqueda de provincia por nombre
     provinciaByName(name: String!): Provincia
+    # Busqueda de comarca por nombre
     comarcaByName(name: String!): Comarca
+    # Busqueda de distrito por nombre
     distritoByName(name: String!): Distrito
+    # Obtener la lista de provincias
     provincia: [Provincia!]!
+    # Obtener la lista de comarcas
     comarca: [Comarca!]!
   }
 
@@ -104,6 +125,7 @@ const startApolloServer = async (app, httpServer) => {
     typeDefs,
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    introspection: true,
     persistedQueries: false
   });
 
