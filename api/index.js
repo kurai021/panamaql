@@ -5,9 +5,15 @@ import http from "http";
 import express from "express";
 import cors from "cors";
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import fs from 'fs';
 
-const jsonData = fs.readFileSync(path.join(__dirname, 'json/data.json'), 'utf-8');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const jsonDataPath = path.join(__dirname, 'json/panama.json');
+const jsonData = fs.readFileSync(jsonDataPath, 'utf-8');
 const data = JSON.parse(jsonData);
 
 const app = express();
