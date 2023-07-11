@@ -6,7 +6,7 @@ import cors from "cors";
 
 import fs from 'fs';
 
-const jsonData = fs.readFileSync('api/json/panama.json', 'utf8');
+const jsonData = fs.readFileSync(path.join(__dirname, 'json/data.json'), 'utf-8');
 const data = JSON.parse(jsonData);
 
 const app = express();
