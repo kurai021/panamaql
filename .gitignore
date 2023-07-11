@@ -1,0 +1,23 @@
+# Node.js dependencies
+/node_modules
+
+# Built files
+/dist
+/build
+
+# Environment variables
+.env
+
+# Logs
+*.log
+
+# IDE files
+.vscode
+.idea
+
+# macOS specific files
+.DS_Store
+
+# NPM/Yarn lock files
+package-lock.json
+yarn.lock
