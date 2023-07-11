@@ -106,6 +106,7 @@ const startApolloServer = async (app, httpServer) => {
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     introspection: true, // Habilitar la introspección GraphQL
     playground: true, // Habilitar el explorador GraphQL
+    persistedQueries: false
   });
 
   await server.start();
