@@ -1,22 +1,25 @@
 {
-	"name": "panama-ql",
-	"version": "1.0.0",
-	"main": "index.js",
-	"license": "Apache-2.0",
-	"type": "module",
-	"scripts": {
-		"dev": "nodemon dev"
-	},
-	"dependencies": {
-		"apollo-server-core": "^3.12.0",
-		"apollo-server-express": "^3.12.0",
-		"cors": "^2.8.5",
-		"express": "^4.18.2",
-		"graphql": "^16.7.1"
-	},
-	"devDependencies": {
-		"consola": "^3.2.3",
-		"dotenv": "^16.3.1",
-		"nodemon": "^3.0.1"
-	}
+  "name": "panama-ql",
+  "author": "Richard Armuelles <alexanderarmuelles@riseup.net>",
+  "description": "PanamaQL es una API construida en GraphQL para proporcionar información detallada sobre la división administrativa de Panamá",
+  "repository": "https://github.com/kurai021/panamaql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon dev"
+  },
+  "dependencies": {
+    "apollo-server-core": "3.12.0",
+    "apollo-server-express": "3.12.0",
+    "cors": "2.8.5",
+    "express": "4.18.2",
+    "graphql": "16.7.1"
+  },
+  "devDependencies": {
+    "consola": "3.2.3",
+    "dotenv": "16.3.1",
+    "nodemon": "3.0.1"
+  }
 }
