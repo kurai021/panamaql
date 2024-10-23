@@ -1,9 +1,8 @@
 {
-	"rewrites": [
-		{
-			"source": "/(.*)",
-			"destination": "/api",
-			"installCommand": "yarn"
-		}
-	]
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/api"
+        }
+    ]
 }
