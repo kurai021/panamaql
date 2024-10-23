@@ -23,7 +23,7 @@ app.use(express.json());
 
 const httpServer = http.createServer(app);
 
-const typeDefs = gql`
+export const typeDefs = gql`
 
   # Define los distritos de Panamá
   type Distrito {
@@ -77,7 +77,7 @@ const typeDefs = gql`
 
 `;
 
-const resolvers = {
+export const resolvers = {
   Query: {
     provinciaByName: (_, { name }) => {
       const provincia = data.panama[0].provincia.find((item) => item.name === name);
