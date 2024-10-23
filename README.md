@@ -11,8 +11,9 @@
 
 ## Requisitos
 
--   **Node.js** (v14+)
--   **npm** o **yarn**
+- **NVM** ([Node Version Manager](https://github.com/nvm-sh/nvm))
+- **Node.js** (v14+)
+- **npm** o **yarn**
 
 ## Instalación
 
@@ -138,6 +139,18 @@ query {
 		}
 	}
 }
+```
+
+## Pruebas
+
+Para ejecutar las pruebas, utiliza el siguiente comando:
+
+```bash
+npm test
+
+# o si usas yarn
+
+yarn test
 ```
 
 ## Contribución
