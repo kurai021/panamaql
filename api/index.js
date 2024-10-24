@@ -5,15 +5,15 @@ import http from "http";
 import express from "express";
 import cors from "cors";
 
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import fs from 'fs';
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const jsonDataPath = path.join(__dirname, 'json/panama.json');
-const jsonData = fs.readFileSync(jsonDataPath, 'utf-8');
+const jsonDataPath = path.join(__dirname, "json/panama.json");
+const jsonData = fs.readFileSync(jsonDataPath, "utf-8");
 const data = JSON.parse(jsonData);
 
 const app = express();
@@ -24,55 +24,57 @@ app.use(express.json());
 const httpServer = http.createServer(app);
 
 export const typeDefs = gql`
+    # Define los distritos de Panamá
+    type Distrito {
+        id: ID!
+        name: String!
+        cabecera: String
+        corregimientos: [String!]!
+    }
 
-  # Define los distritos de Panamá
-  type Distrito {
-    id: ID!
-    name: String!
-    cabecera: String
-    corregimientos: [String!]!
-  }
+    # Define las comarcas de Panamá
+    type Comarca {
+        id: ID!
+        name: String!
+        capital: String!
+        distrito: [Distrito!]!
+    }
 
-  # Define las comarcas de Panamá
-  type Comarca {
-    id: ID!
-    name: String!
-    capital: String!
-    distrito: [Distrito!]!
-  }
+    # Define las provincias de Panamá
+    type Provincia {
+        id: ID!
+        name: String!
+        capital: String!
+        distrito: [Distrito!]!
+    }
 
-  # Define las provincias de Panamá
-  type Provincia {
-    id: ID!
-    name: String!
-    capital: String!
-    distrito: [Distrito!]!
-  }
-
-  # Los tipos de busqueda que se pueden realizar
-  type Query {
-    # Busqueda de provincia por nombre
-    provinciaByName(name: String!): Provincia
-    # Busqueda de comarca por nombre
-    comarcaByName(name: String!): Comarca
-    # Busqueda de distrito por nombre
-    distritoByName(name: String!): Distrito
-    # Obtener la lista de provincias
-    provincia: [Provincia!]!
-    # Obtener la lista de comarcas
-    comarca: [Comarca!]!
-  }
-
+    # Los tipos de busqueda que se pueden realizar
+    type Query {
+        # Busqueda de provincia por nombre
+        provinciaByName(name: String!): Provincia
+        # Busqueda de comarca por nombre
+        comarcaByName(name: String!): Comarca
+        # Busqueda de distrito por nombre
+        distritoByName(name: String!): Distrito
+        # Obtener la lista de provincias
+        provincia: [Provincia!]!
+        # Obtener la lista de comarcas
+        comarca: [Comarca!]!
+    }
 `;
 
 export const resolvers = {
     Query: {
         provinciaByName: (_, { name }) => {
-            const provincia = data.panama[0].provincia.find((item) => item.name === name);
+            const provincia = data.panama[0].provincia.find(
+                (item) => item.name === name,
+            );
             return provincia ? provincia : null;
         },
         comarcaByName: (_, { name }) => {
-            const comarca = data.panama[1].comarca.find((item) => item.name === name);
+            const comarca = data.panama[1].comarca.find(
+                (item) => item.name === name,
+            );
             return comarca ? comarca : null;
         },
         distritoByName: (_, { name }) => {
@@ -104,8 +106,8 @@ export const resolvers = {
             return foundDistrito; // Devolver el distrito encontrado o null si no se encontró
         },
         provincia: () => data.panama[0].provincia,
-        comarca: () => data.panama[1].comarca
-    }
+        comarca: () => data.panama[1].comarca,
+    },
 };
 
 const startApolloServer = async (app, httpServer) => {
@@ -114,12 +116,12 @@ const startApolloServer = async (app, httpServer) => {
         resolvers,
         plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
         introspection: true,
-        persistedQueries: false
+        persistedQueries: false,
     });
 
     await server.start();
     server.applyMiddleware({ app });
-}
+};
 
 startApolloServer(app, httpServer);
 

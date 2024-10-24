@@ -11,9 +11,9 @@
 
 ## Requisitos
 
-- **NVM** ([Node Version Manager](https://github.com/nvm-sh/nvm))
-- **Node.js** (v14+)
-- **npm** o **yarn**
+-   **NVM** ([Node Version Manager](https://github.com/nvm-sh/nvm))
+-   **Node.js** (v14+)
+-   **npm** o **yarn**
 
 ## Instalación
 
@@ -65,17 +65,17 @@ Una vez que el servidor esté en ejecución, puedes acceder a la interfaz de **G
 
 ```graphql
 query {
-	provincia {
-		id
-		name
-		capital
-		distrito {
-			id
-			name
-			cabecera
-			corregimientos
-		}
-	}
+    provincia {
+        id
+        name
+        capital
+        distrito {
+            id
+            name
+            cabecera
+            corregimientos
+        }
+    }
 }
 ```
 
@@ -83,14 +83,14 @@ query {
 
 ```graphql
 query {
-	provinciaByName(name: "Panamá") {
-		id
-		name
-		capital
-		distrito {
-			name
-		}
-	}
+    provinciaByName(name: "Panamá") {
+        id
+        name
+        capital
+        distrito {
+            name
+        }
+    }
 }
 ```
 
@@ -98,12 +98,12 @@ query {
 
 ```graphql
 query {
-	distritoByName(name: "San Miguelito") {
-		id
-		name
-		cabecera
-		corregimientos
-	}
+    distritoByName(name: "San Miguelito") {
+        id
+        name
+        cabecera
+        corregimientos
+    }
 }
 ```
 
@@ -111,15 +111,15 @@ query {
 
 ```graphql
 query {
-	comarca {
-		id
-		name
-		capital
-		distrito {
-			name
-			corregimientos
-		}
-	}
+    comarca {
+        id
+        name
+        capital
+        distrito {
+            name
+            corregimientos
+        }
+    }
 }
 ```
 
@@ -127,17 +127,17 @@ query {
 
 ```graphql
 query {
-	comarcaByName(name: "Ngäbe-Buglé") {
-		id
-		name
-		capital
-		distrito {
-			id
-			name
-			cabecera
-			corregimientos
-		}
-	}
+    comarcaByName(name: "Ngäbe-Buglé") {
+        id
+        name
+        capital
+        distrito {
+            id
+            name
+            cabecera
+            corregimientos
+        }
+    }
 }
 ```
 
