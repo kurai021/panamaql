@@ -36,6 +36,7 @@ export const typeDefs = gql`
     type Comarca {
         id: ID!
         name: String!
+        mapa: String!
         capital: String!
         distrito: [Distrito!]!
     }
@@ -44,6 +45,7 @@ export const typeDefs = gql`
     type Provincia {
         id: ID!
         name: String!
+        mapa: String!
         capital: String!
         distrito: [Distrito!]!
     }

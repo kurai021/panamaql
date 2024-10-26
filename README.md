@@ -68,6 +68,7 @@ query {
     provincia {
         id
         name
+        mapa
         capital
         distrito {
             id
@@ -86,6 +87,7 @@ query {
     provinciaByName(name: "Panamá") {
         id
         name
+        mapa
         capital
         distrito {
             name
@@ -114,6 +116,7 @@ query {
     comarca {
         id
         name
+        mapa
         capital
         distrito {
             name
@@ -134,6 +137,7 @@ query {
         distrito {
             id
             name
+            mapa
             cabecera
             corregimientos
         }
