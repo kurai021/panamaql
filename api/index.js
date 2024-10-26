@@ -36,6 +36,7 @@ export const typeDefs = gql`
     type Comarca {
         id: ID!
         name: String!
+		mapa: String!
         capital: String!
         distrito: [Distrito!]!
     }
@@ -44,6 +45,7 @@ export const typeDefs = gql`
     type Provincia {
         id: ID!
         name: String!
+		mapa: String!
         capital: String!
         distrito: [Distrito!]!
     }
@@ -64,63 +66,63 @@ export const typeDefs = gql`
 `;
 
 export const resolvers = {
-    Query: {
-        provinciaByName: (_, { name }) => {
-            const provincia = data.panama[0].provincia.find(
-                (item) => item.name === name,
-            );
-            return provincia ? provincia : null;
-        },
-        comarcaByName: (_, { name }) => {
-            const comarca = data.panama[1].comarca.find(
-                (item) => item.name === name,
-            );
-            return comarca ? comarca : null;
-        },
-        distritoByName: (_, { name }) => {
-            let foundDistrito = null;
+	Query: {
+		provinciaByName: (_, { name }) => {
+			const provincia = data.panama[0].provincia.find(
+				(item) => item.name === name,
+			);
+			return provincia ? provincia : null;
+		},
+		comarcaByName: (_, { name }) => {
+			const comarca = data.panama[1].comarca.find(
+				(item) => item.name === name,
+			);
+			return comarca ? comarca : null;
+		},
+		distritoByName: (_, { name }) => {
+			let foundDistrito = null;
 
-            // Búsqueda del distrito por nombre en las provincias
-            data.panama[0].provincia.forEach((provincia) => {
-                provincia.distrito.forEach((distrito) => {
-                    if (distrito.name === name) {
-                        foundDistrito = distrito;
-                    }
-                });
-            });
+			// Búsqueda del distrito por nombre en las provincias
+			data.panama[0].provincia.forEach((provincia) => {
+				provincia.distrito.forEach((distrito) => {
+					if (distrito.name === name) {
+						foundDistrito = distrito;
+					}
+				});
+			});
 
-            // Si se encontró el distrito en las provincias, devolverlo
-            if (foundDistrito) {
-                return foundDistrito;
-            }
+			// Si se encontró el distrito en las provincias, devolverlo
+			if (foundDistrito) {
+				return foundDistrito;
+			}
 
-            // Búsqueda del distrito por nombre en las comarcas
-            data.panama[1].comarca.forEach((comarca) => {
-                comarca.distrito.forEach((distrito) => {
-                    if (distrito.name === name) {
-                        foundDistrito = distrito;
-                    }
-                });
-            });
+			// Búsqueda del distrito por nombre en las comarcas
+			data.panama[1].comarca.forEach((comarca) => {
+				comarca.distrito.forEach((distrito) => {
+					if (distrito.name === name) {
+						foundDistrito = distrito;
+					}
+				});
+			});
 
-            return foundDistrito; // Devolver el distrito encontrado o null si no se encontró
-        },
-        provincia: () => data.panama[0].provincia,
-        comarca: () => data.panama[1].comarca,
-    },
+			return foundDistrito; // Devolver el distrito encontrado o null si no se encontró
+		},
+		provincia: () => data.panama[0].provincia,
+		comarca: () => data.panama[1].comarca,
+	},
 };
 
 const startApolloServer = async (app, httpServer) => {
-    const server = new ApolloServer({
-        typeDefs,
-        resolvers,
-        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-        introspection: true,
-        persistedQueries: false,
-    });
+	const server = new ApolloServer({
+		typeDefs,
+		resolvers,
+		plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+		introspection: true,
+		persistedQueries: false,
+	});
 
-    await server.start();
-    server.applyMiddleware({ app });
+	await server.start();
+	server.applyMiddleware({ app });
 };
 
 startApolloServer(app, httpServer);
