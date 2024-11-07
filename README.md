@@ -67,12 +67,14 @@ Una vez que el servidor esté en ejecución, puedes acceder a la interfaz de **G
 query {
     provincia {
         id
-        name
+        nombre
         mapa
         capital
+        habitantes
+        superficie
         distrito {
             id
-            name
+            nombre
             cabecera
             corregimientos
         }
@@ -86,11 +88,11 @@ query {
 query {
     provinciaByName(name: "Panamá") {
         id
-        name
+        nombre
         mapa
         capital
         distrito {
-            name
+            nombre
         }
     }
 }
@@ -102,7 +104,7 @@ query {
 query {
     distritoByName(name: "San Miguelito") {
         id
-        name
+        nombre
         cabecera
         corregimientos
     }
@@ -115,11 +117,13 @@ query {
 query {
     comarca {
         id
-        name
+        nombre
         mapa
         capital
+        habitantes
+        superficie
         distrito {
-            name
+            nombre
             corregimientos
         }
     }
@@ -132,12 +136,11 @@ query {
 query {
     comarcaByName(name: "Ngäbe-Buglé") {
         id
-        name
+        nombre
         capital
         distrito {
             id
-            name
-            mapa
+            nombre
             cabecera
             corregimientos
         }
