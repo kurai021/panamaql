@@ -37,6 +37,8 @@ export const typeDefs = gql`
         id: ID!
         nombre: String!
         mapa: String!
+		habitantes: String!
+		superficie: String!
         capital: String!
         distrito: [Distrito!]!
     }
@@ -46,6 +48,8 @@ export const typeDefs = gql`
         id: ID!
         nombre: String!
         mapa: String!
+		habitantes: String!
+		superficie: String!
         capital: String!
         distrito: [Distrito!]!
     }
