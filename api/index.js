@@ -37,8 +37,8 @@ export const typeDefs = gql`
         id: ID!
         nombre: String!
         mapa: String!
-		habitantes: String!
-		superficie: String!
+        habitantes: String!
+        superficie: String!
         capital: String!
         distrito: [Distrito!]!
     }
@@ -48,20 +48,20 @@ export const typeDefs = gql`
         id: ID!
         nombre: String!
         mapa: String!
-		habitantes: String!
-		superficie: String!
+        habitantes: String!
+        superficie: String!
         capital: String!
         distrito: [Distrito!]!
     }
 
-	# Define detalles del país
-	type Pais {
-		nombre: String!
-		capital: String!
-		mapa: String!
-		provincia: [Provincia!]!
-		comarca: [Comarca!]!
-	}
+    # Define detalles del país
+    type Pais {
+        nombre: String!
+        capital: String!
+        mapa: String!
+        provincia: [Provincia!]!
+        comarca: [Comarca!]!
+    }
 
     # Los tipos de busqueda que se pueden realizar
     type Query {
@@ -71,8 +71,8 @@ export const typeDefs = gql`
         comarcaByName(nombre: String!): Comarca
         # Busqueda de distrito por nombre
         distritoByName(nombre: String!): Distrito
-		# Obtener datos del país
-		pais: [Pais!]!
+        # Obtener datos del país
+        pais: [Pais!]!
         # Obtener la lista de provincias
         provincia: [Provincia!]!
         # Obtener la lista de comarcas
@@ -81,75 +81,77 @@ export const typeDefs = gql`
 `;
 
 export const resolvers = {
-	Query: {
-		provinciaByName: (_, { nombre }) => {
-			const provincia = data.panama[0].provincia.find(
-				(item) => item.nombre === nombre
-			);
-			return provincia ? provincia : null;
-		},
-		comarcaByName: (_, { nombre }) => {
-			const comarca = data.panama[0].comarca.find(
-				(item) => item.nombre === nombre,
-			);
-			return comarca ? comarca : null;
-		},
-		distritoByName: (_, { nombre }) => {
-			let foundDistrito = null;
+    Query: {
+        provinciaByName: (_, { nombre }) => {
+            const provincia = data.panama[0].provincia.find(
+                (item) => item.nombre === nombre,
+            );
+            return provincia ? provincia : null;
+        },
+        comarcaByName: (_, { nombre }) => {
+            const comarca = data.panama[0].comarca.find(
+                (item) => item.nombre === nombre,
+            );
+            return comarca ? comarca : null;
+        },
+        distritoByName: (_, { nombre }) => {
+            let foundDistrito = null;
 
-			// Búsqueda del distrito por nombre en las provincias
-			data.panama[0].provincia.forEach((provincia) => {
-				provincia.distrito.forEach((distrito) => {
-					if (distrito.nombre === nombre) {
-						foundDistrito = distrito;
-					}
-				});
-			});
+            // Búsqueda del distrito por nombre en las provincias
+            data.panama[0].provincia.forEach((provincia) => {
+                provincia.distrito.forEach((distrito) => {
+                    if (distrito.nombre === nombre) {
+                        foundDistrito = distrito;
+                    }
+                });
+            });
 
-			// Si se encontró el distrito en las provincias, devolverlo
-			if (foundDistrito) {
-				return foundDistrito;
-			}
+            // Si se encontró el distrito en las provincias, devolverlo
+            if (foundDistrito) {
+                return foundDistrito;
+            }
 
-			// Búsqueda del distrito por nombre en las comarcas
-			data.panama[0].comarca.forEach((comarca) => {
-				comarca.distrito.forEach((distrito) => {
-					if (distrito.nombre === nombre) {
-						foundDistrito = distrito;
-					}
-				});
-			});
+            // Búsqueda del distrito por nombre en las comarcas
+            data.panama[0].comarca.forEach((comarca) => {
+                comarca.distrito.forEach((distrito) => {
+                    if (distrito.nombre === nombre) {
+                        foundDistrito = distrito;
+                    }
+                });
+            });
 
-			return foundDistrito; // Devolver el distrito encontrado o null si no se encontró
-		},
-		pais: () => {
-			const panamaDetails = data.panama[0].detalles[0]; // Obtener el país
-			const provincias = data.panama[0].provincia;     // Obtener las provincias
-			const comarcas = data.panama[0].comarca;         // Obtener las comarcas
+            return foundDistrito; // Devolver el distrito encontrado o null si no se encontró
+        },
+        pais: () => {
+            const panamaDetails = data.panama[0].detalles[0]; // Obtener el país
+            const provincias = data.panama[0].provincia; // Obtener las provincias
+            const comarcas = data.panama[0].comarca; // Obtener las comarcas
 
-			// Agregar provincias y comarcas al objeto país
-			return [{
-				...panamaDetails,
-				provincia: provincias,
-				comarca: comarcas
-			}];
-		},
-		provincia: () => data.panama[0].provincia,
-		comarca: () => data.panama[0].comarca,
-	},
+            // Agregar provincias y comarcas al objeto país
+            return [
+                {
+                    ...panamaDetails,
+                    provincia: provincias,
+                    comarca: comarcas,
+                },
+            ];
+        },
+        provincia: () => data.panama[0].provincia,
+        comarca: () => data.panama[0].comarca,
+    },
 };
 
 const startApolloServer = async (app, httpServer) => {
-	const server = new ApolloServer({
-		typeDefs,
-		resolvers,
-		plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-		introspection: true,
-		persistedQueries: false,
-	});
+    const server = new ApolloServer({
+        typeDefs,
+        resolvers,
+        plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+        introspection: true,
+        persistedQueries: false,
+    });
 
-	await server.start();
-	server.applyMiddleware({ app });
+    await server.start();
+    server.applyMiddleware({ app });
 };
 
 startApolloServer(app, httpServer);

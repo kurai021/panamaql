@@ -12,36 +12,63 @@ describe("panama.json", () => {
     test("should have correct structure", () => {
         expect(panamaData).toHaveProperty("panama");
         expect(Array.isArray(panamaData.panama)).toBe(true);
+        expect(panamaData.panama[0]).toHaveProperty("detalles");
         expect(panamaData.panama[0]).toHaveProperty("provincia");
-        expect(panamaData.panama[1]).toHaveProperty("comarca");
+        expect(panamaData.panama[0]).toHaveProperty("comarca");
     });
 
-    test("each province should have correct properties", () => {
-        panamaData.panama[0].provincia.forEach((province) => {
-            expect(province).toHaveProperty("id");
-            expect(province).toHaveProperty("name");
-            expect(province).toHaveProperty("capital");
-            expect(province).toHaveProperty("distrito");
-            expect(Array.isArray(province.distrito)).toBe(true);
+    test("should have correct details", () => {
+        panamaData.panama[0].detalles.forEach((detalles) => {
+            expect(detalles).toHaveProperty("nombre");
+            expect(detalles).toHaveProperty("capital");
+            expect(detalles).toHaveProperty("habitantes");
+            expect(detalles).toHaveProperty("superficie");
+            expect(detalles).toHaveProperty("mapa");
+        });
+    });
+
+    test("each provincia should have correct properties", () => {
+        panamaData.panama[0].provincia.forEach((provincia) => {
+            expect(provincia).toHaveProperty("id");
+            expect(provincia).toHaveProperty("nombre");
+            expect(provincia).toHaveProperty("capital");
+            expect(provincia).toHaveProperty("habitantes");
+            expect(provincia).toHaveProperty("superficie");
+            expect(provincia).toHaveProperty("mapa");
+            expect(provincia).toHaveProperty("distrito");
+            expect(Array.isArray(provincia.distrito)).toBe(true);
+        });
+    });
+
+    test("each region should have correct properties", () => {
+        panamaData.panama[0].comarca.forEach((comarca) => {
+            expect(comarca).toHaveProperty("id");
+            expect(comarca).toHaveProperty("nombre");
+            expect(comarca).toHaveProperty("capital");
+            expect(comarca).toHaveProperty("habitantes");
+            expect(comarca).toHaveProperty("superficie");
+            expect(comarca).toHaveProperty("mapa");
+            expect(comarca).toHaveProperty("distrito");
+            expect(Array.isArray(comarca.distrito)).toBe(true);
         });
     });
 
     test("each district should have correct properties", () => {
-        panamaData.panama[0].provincia.forEach((province) => {
-            province.distrito.forEach((district) => {
-                expect(district).toHaveProperty("id");
-                expect(district).toHaveProperty("name");
-                expect(district).toHaveProperty("cabecera");
-                expect(district).toHaveProperty("corregimientos");
-                expect(Array.isArray(district.corregimientos)).toBe(true);
+        panamaData.panama[0].provincia.forEach((provincia) => {
+            provincia.distrito.forEach((distrito) => {
+                expect(distrito).toHaveProperty("id");
+                expect(distrito).toHaveProperty("nombre");
+                expect(distrito).toHaveProperty("cabecera");
+                expect(distrito).toHaveProperty("corregimientos");
+                expect(Array.isArray(distrito.corregimientos)).toBe(true);
             });
         });
     });
 
-    test("each corregimiento should be a string", () => {
-        panamaData.panama[0].provincia.forEach((province) => {
-            province.distrito.forEach((district) => {
-                district.corregimientos.forEach((corregimiento) => {
+    test("each township should be a string", () => {
+        panamaData.panama[0].provincia.forEach((provincia) => {
+            provincia.distrito.forEach((distrito) => {
+                distrito.corregimientos.forEach((corregimiento) => {
                     expect(typeof corregimiento).toBe("string");
                 });
             });
