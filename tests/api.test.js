@@ -14,7 +14,11 @@ describe("GraphQL API", () => {
       query {
         provincia {
           id
-          name
+          nombre
+		  mapa
+		  capital
+		  habitantes
+		  superficie
         }
       }
     `;
@@ -26,13 +30,13 @@ describe("GraphQL API", () => {
     test("should fetch a specific province", async () => {
         const GET_PROVINCE = `
       query($name: String!) {
-        provinciaByName(name: $name) {
+        provinciaByName(nombre: $name) {
           id
-          name
+          nombre
           capital
           distrito {
             id
-            name
+            nombre
           }
         }
       }
@@ -42,7 +46,7 @@ describe("GraphQL API", () => {
             variables: { name: "Panamá" },
         });
         expect(res.data.provinciaByName).toBeDefined();
-        expect(res.data.provinciaByName.name).toBe("Panamá");
+        expect(res.data.provinciaByName.nombre).toBe("Panamá");
         expect(res.data.provinciaByName.distrito).toBeDefined();
     });
 
@@ -51,7 +55,11 @@ describe("GraphQL API", () => {
       query {
         comarca {
           id
-          name
+          nombre
+		  mapa
+		  capital
+		  habitantes
+		  superficie
         }
       }
     `;
@@ -63,13 +71,13 @@ describe("GraphQL API", () => {
     test("should fetch a specific comarca", async () => {
         const GET_COMARCA = `
       query($name: String!) {
-        comarcaByName(name: $name) {
+        comarcaByName(nombre: $name) {
           id
-          name
+          nombre
           capital
           distrito {
             id
-            name
+            nombre
           }
         }
       }
@@ -79,16 +87,16 @@ describe("GraphQL API", () => {
             variables: { name: "Guna Yala" },
         });
         expect(res.data.comarcaByName).toBeDefined();
-        expect(res.data.comarcaByName.name).toBe("Guna Yala");
+        expect(res.data.comarcaByName.nombre).toBe("Guna Yala");
         expect(res.data.comarcaByName.distrito).toBeDefined();
     });
 
     test("should fetch a specific district", async () => {
         const GET_DISTRICT = `
       query($name: String!) {
-        distritoByName(name: $name) {
+        distritoByName(nombre: $name) {
           id
-          name
+          nombre
           corregimientos
         }
       }
@@ -98,7 +106,7 @@ describe("GraphQL API", () => {
             variables: { name: "Panamá" },
         });
         expect(res.data.distritoByName).toBeDefined();
-        expect(res.data.distritoByName.name).toBe("Panamá");
+        expect(res.data.distritoByName.nombre).toBe("Panamá");
         expect(res.data.distritoByName.corregimientos).toBeDefined();
         expect(Array.isArray(res.data.distritoByName.corregimientos)).toBe(
             true,
