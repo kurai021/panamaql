@@ -9,6 +9,23 @@ describe("GraphQL API", () => {
         testServer = new ApolloServer({ typeDefs, resolvers });
     });
 
+    test("should fetch country data", async () => {
+        const GET_COUNTRY = `
+		query {
+			pais {
+    			nombre
+    			capital
+    			habitantes
+    			superficie
+    			mapa
+  			}
+		}
+	`;
+        const res = await testServer.executeOperation({ query: GET_COUNTRY });
+        expect(res.data.pais).toBeDefined();
+        expect(res.data.pais.length).toBeGreaterThan(0);
+    });
+
     test("should fetch all provinces", async () => {
         const GET_PROVINCES = `
       query {

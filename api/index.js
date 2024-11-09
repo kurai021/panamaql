@@ -59,6 +59,8 @@ export const typeDefs = gql`
         nombre: String!
         capital: String!
         mapa: String!
+        habitantes: String!
+        superficie: String!
         provincia: [Provincia!]!
         comarca: [Comarca!]!
     }
