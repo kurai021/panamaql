@@ -44,7 +44,30 @@ describe("GraphQL API", () => {
         expect(res.data.provincia.length).toBeGreaterThan(0);
     });
 
-    test("should fetch a specific province", async () => {
+    test("should fetch a specific province by id", async () => {
+        const GET_PROVINCE = `
+      query($id: String!) {
+        provinciaById(id: $id) {
+          id
+          nombre
+          capital
+          distrito {
+            id
+            nombre
+          }
+        }
+      }
+    `;
+        const res = await testServer.executeOperation({
+            query: GET_PROVINCE,
+            variables: { id: "PA-PO" },
+        });
+        expect(res.data.provinciaById).toBeDefined();
+        expect(res.data.provinciaById.id).toBe("PA-PO");
+        expect(res.data.provinciaById.distrito).toBeDefined();
+    });
+
+    test("should fetch a specific province by name", async () => {
         const GET_PROVINCE = `
       query($name: String!) {
         provinciaByName(nombre: $name) {
@@ -67,7 +90,7 @@ describe("GraphQL API", () => {
         expect(res.data.provinciaByName.distrito).toBeDefined();
     });
 
-    test("should fetch all comarcas", async () => {
+    test("should fetch all regions", async () => {
         const GET_COMARCAS = `
       query {
         comarca {
@@ -85,7 +108,30 @@ describe("GraphQL API", () => {
         expect(res.data.comarca.length).toBeGreaterThan(0);
     });
 
-    test("should fetch a specific comarca", async () => {
+    test("should fetch a specific region by id", async () => {
+        const GET_COMARCA = `
+      query($id: String!) {
+        comarcaById(id: $id) {
+          id
+          nombre
+          capital
+          distrito {
+            id
+            nombre
+          }
+        }
+      }
+    `;
+        const res = await testServer.executeOperation({
+            query: GET_COMARCA,
+            variables: { id: "PA-GY" },
+        });
+        expect(res.data.comarcaById).toBeDefined();
+        expect(res.data.comarcaById.id).toBe("PA-GY");
+        expect(res.data.comarcaById.distrito).toBeDefined();
+    });
+
+    test("should fetch a specific region by name", async () => {
         const GET_COMARCA = `
       query($name: String!) {
         comarcaByName(nombre: $name) {

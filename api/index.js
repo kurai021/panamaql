@@ -67,8 +67,12 @@ export const typeDefs = gql`
 
     # Los tipos de busqueda que se pueden realizar
     type Query {
+        # Busqueda de provincia por ID
+        provinciaById(id: String!): Provincia
         # Busqueda de provincia por nombre
         provinciaByName(nombre: String!): Provincia
+        # Busqueda de comarca por ID
+        comarcaById(id: String!): Comarca
         # Busqueda de comarca por nombre
         comarcaByName(nombre: String!): Comarca
         # Busqueda de distrito por nombre
@@ -84,11 +88,23 @@ export const typeDefs = gql`
 
 export const resolvers = {
     Query: {
+        provinciaById: (_, { id }) => {
+            const provincia = data.panama[0].provincia.find(
+                (item) => item.id === id,
+            );
+            return provincia ? provincia : null;
+        },
         provinciaByName: (_, { nombre }) => {
             const provincia = data.panama[0].provincia.find(
                 (item) => item.nombre === nombre,
             );
             return provincia ? provincia : null;
+        },
+        comarcaById: (_, { id }) => {
+            const comarca = data.panama[0].comarca.find(
+                (item) => item.id === id,
+            );
+            return comarca ? comarca : null;
         },
         comarcaByName: (_, { nombre }) => {
             const comarca = data.panama[0].comarca.find(

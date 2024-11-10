@@ -11,8 +11,8 @@
 
 ## Requisitos
 
--   **NVM** ([Node Version Manager](https://github.com/nvm-sh/nvm))
--   **Node.js** (v14+)
+-   **NVM** ([Node Version Manager](https://github.com/nvm-sh/nvm)) o N ([n – Interactively Manage Your Node.js Versions](https://github.com/tj/n))
+-   **Node.js** (v18+)
 -   **npm** o **yarn**
 
 ## Instalación
@@ -82,7 +82,36 @@ query {
 }
 ```
 
-2. Buscar una provincia por nombre
+2. Buscar una provincia por ID, en la siguiente tabla se muestran los IDs por provincia
+
+| ID    | Provincia      |
+| ----- | -------------- |
+| PA-BT | Bocas del Toro |
+| PA-C  | Coclé          |
+| PA-CL | Colón          |
+| PA-CH | Chiriquí       |
+| PA-D  | Darién         |
+| PA-H  | Herrera        |
+| PA-LS | Los Santos     |
+| PA-P  | Panamá         |
+| PA-PO | Panamá Oeste   |
+| PA-V  | Veraguas       |
+
+```graphql
+query {
+    provinciaById(id: "PA-V") {
+        id
+        nombre
+        mapa
+        capital
+        distrito {
+            nombre
+        }
+    }
+}
+```
+
+3. Buscar una provincia por nombre
 
 ```graphql
 query {
@@ -98,7 +127,7 @@ query {
 }
 ```
 
-3. Buscar un distrito por nombre
+4. Buscar un distrito por nombre
 
 ```graphql
 query {
@@ -111,7 +140,7 @@ query {
 }
 ```
 
-4. Obtener todas las comarcas
+5. Obtener todas las comarcas
 
 ```graphql
 query {
@@ -130,7 +159,32 @@ query {
 }
 ```
 
-5. Buscar una comarca por nombre
+5. Buscar una comarca por ID, en la siguiente tabla se muestran los IDs por comarca
+
+| ID     | Comarca        |
+| ------ | -------------- |
+| PA-EW  | Emberá-Wounaan |
+| PA-GY  | Guna Yala      |
+| PA-NTD | Naso Tjër Di   |
+| PA-NB  | Ngäbe-Buglé    |
+
+```graphql
+query {
+    comarcaById(id: "PA-NTD") {
+        id
+        nombre
+        capital
+        distrito {
+            id
+            nombre
+            cabecera
+            corregimientos
+        }
+    }
+}
+```
+
+6. Buscar una comarca por nombre
 
 ```graphql
 query {
